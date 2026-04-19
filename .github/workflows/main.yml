@@ -1,0 +1,21 @@
+name: نمایش ۱۰ ایمیل آخر
+
+on:
+  workflow_dispatch: # امکان اجرای دستی
+
+jobs:
+  fetch-emails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: نصب پایتون
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: اجرای اسکریپت ایمیل
+        env:
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: python check_emails.py
